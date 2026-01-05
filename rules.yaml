@@ -1,0 +1,33 @@
+# AI-SafeShell Rule Configuration
+
+rules:
+  # Hard blocks - commands that are never allowed
+  block:
+    - pattern: "^rm -rf /$"
+      explanation: "Attempting to delete the root directory is strictly prohibited."
+    - pattern: "^dd if="
+      explanation: "Low-level disk operations are blocked for safety."
+    - pattern: "chmod 777"
+      explanation: "Setting overly permissive permissions (777) is risky."
+    - pattern: "^:(){ :|:& };:$"
+      explanation: "Fork bombs are blocked."
+
+  # Require user confirmation before execution
+  confirm:
+    - pattern: "^docker system prune"
+      explanation: "This will delete all unused docker data. Proceed?"
+    - pattern: "^rm -rf "
+      explanation: "Recursive deletion can be destructive. Are you sure?"
+    - pattern: "^git reset --hard"
+      explanation: "This will overwrite local changes. Proceed?"
+
+  # Auto-allowed commands
+  allow:
+    - pattern: "^ls"
+    - pattern: "^git status"
+    - pattern: "^git log"
+    - pattern: "^pwd"
+    - pattern: "^echo"
+
+  # Command rewrites (Future feature placeholder)
+  rewrite: []
