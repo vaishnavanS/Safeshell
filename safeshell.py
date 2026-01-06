@@ -43,7 +43,6 @@ def main():
     engine = RuleEngine()
     
     if len(sys.argv) > 1:
-        # Single command mode
         command_str = " ".join(sys.argv[1:])
         handle_command(command_str, engine)
     else:
@@ -63,3 +62,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
